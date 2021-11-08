@@ -1,0 +1,56 @@
+
+
+<h2>reactive form</h2>
+
+
+
+<form [formGroup]="registerForm" (ngSubmit)="submit()" #form="ngForm">
+
+       <label>name:</label>
+    <input type="text" formControlName="name" /> 
+    <span *ngIf="isSubmitted && registerForm.controls.name?.errors?.required" style="color: red;" >name is required</span> 
+    <br>
+    <label>e-mail:</label>
+    <input type="email" formControlName="email"  /> 
+    <span *ngIf="isSubmitted && registerForm.controls.email?.errors?.required" style="color: red;">email is required</span>
+    <span *ngIf="isSubmitted && registerForm.controls.email?.errors?.email" style="color: red;" >valid email is required</span>
+    <br>
+
+
+    <label>createPassword:</label>
+    <input type="password" formControlName="createPassword" /> 
+    <span *ngIf="registerForm.controls.createPassword?.errors?.required" style="color: red;" >password is required</span>
+    <br>
+    <label>confirmPassword:</label>
+    <input type="password" formControlName="confirmPassword" /> 
+    <span *ngIf="!registerForm.controls.confirmPassword?.errors?.match" style="color: red;" >password is not matching</span>
+    <br>
+
+      <label>gender:</label> <br>
+      <label>male</label> <input type="radio" value="male" formControlName="gender" />
+      <label>female</label> <input type="radio" value="female" formControlName="gender" />
+
+      <br>
+
+      <select formControlName="country">
+          <option *ngFor="let country of countries" [value]="country" >{{country}}</option>
+      </select>
+
+      <button (click)="addItem()" >add</button>
+     <br> 
+
+     <div formArrayName="storeDetails" >
+        <div *ngFor="let category of sample; let i = index;"  [formGroupName]="i" >
+         <input type="text" formControlName="storename" /> 
+         <input type="text" formControlName="categories" /> 
+
+         <button (click)="removeItem(i)" >remove</button>
+        </div>
+
+     </div>
+
+
+    <br>
+   <button type="submit">submit</button>
+
+</form>
